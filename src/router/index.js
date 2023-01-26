@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import FeedList from '@/views/FeedList'
 import CreateFeed from '@/views/CreateFeed'
+import VerifyEmail from '@/views/VerifyEmail'
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,11 @@ const routes = [
     path: '/feed/create',
     name: 'CreateFeed',
     component: CreateFeed
+  },
+  {
+    path: '/verify/email',
+    name: 'VerifyEmail',
+    component: VerifyEmail
   }
 ]
 

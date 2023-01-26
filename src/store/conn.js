@@ -5,7 +5,7 @@ import { providers as EthersProviders, utils as EthersUtils } from 'ethers'
 import { Mutex } from 'async-mutex'
 import EventEmitter from 'eventemitter3'
 
-import { REQUEST_UNDEFINED, REQUEST_LIST_FEEDS, REQUEST_DELETE_FEED, REQUEST_ADD_FEED, REQUEST_EDIT_FEED, STATE_WAITING_CHALLENGE, STATE_WAITING_RESPONSE, STATE_AUTHENTICATED, EVENT_WELCOME, EVENT_INITIALIZATION } from '@/store/constants'
+import { REQUEST_UNDEFINED, REQUEST_LIST_FEEDS, REQUEST_DELETE_FEED, REQUEST_ADD_FEED, REQUEST_EDIT_FEED, REQUEST_EMAIL_VERIFICATION, STATE_WAITING_CHALLENGE, STATE_WAITING_RESPONSE, STATE_AUTHENTICATED, EVENT_WELCOME, EVENT_INITIALIZATION } from '@/store/constants'
 
 export class WebSocketConn {
   async initialize (provider) {
@@ -143,6 +143,12 @@ export class WebSocketConn {
   deleteFeed (feed) {
     return this.requestAndWait(REQUEST_DELETE_FEED, {
       id: feed.id
+    })
+  }
+
+  requestEmailVerification (token) {
+    return this.requestAndWait(REQUEST_EMAIL_VERIFICATION, {
+      token: Buffer.from(token, 'hex')
     })
   }
 }

@@ -11,6 +11,7 @@ export const REQUEST_ADD_FEED = 0x0011
 export const REQUEST_EDIT_FEED = 0x0012
 export const REQUEST_REMOVE_FEED = 0x0013
 export const REQUEST_DELETE_FEED = 0x0014
+export const REQUEST_EMAIL_VERIFICATION = 0x0020
 
 export const SORT_FEED_NEWEST = 0x0
 export const SORT_FEED_OLDEST = 0x1
