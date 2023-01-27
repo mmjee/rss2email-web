@@ -3,6 +3,7 @@
     <v-card width="768">
       <v-card-title>No account found, enter your email to create one</v-card-title>
       <v-card-text>
+        <v-alert color="warning">Remember, no notifications are actually sent until your e-mail address is actually verified.</v-alert>
         <form @submit.prevent="onSend">
           <v-text-field type="email" v-model="email" label="E-mail address" aria-required="true" />
           <v-btn type="submit" color="primary">Submit</v-btn>

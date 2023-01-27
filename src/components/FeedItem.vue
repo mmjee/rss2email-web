@@ -14,7 +14,7 @@
       <form @submit.prevent="onSubmit">
         <v-text-field hide-details label="Name" :value="feed.name" v-on:input="onNameChange" />
         <v-text-field hide-details label="URL" :value="feed.feed_url" v-on:input="onURLChange" />
-        <v-text-field hide-details label="Frequency" type="number" :value="freqSec" v-on:input="onFreqChg">
+        <v-text-field label="Frequency" type="number" :value="freqSec" v-on:input="onFreqChg" hint="Example values: 3600 (every hour), 86400 (every day), 604800 (every week)" persistent-hint>
           <template v-slot:append>
             (seconds)
           </template>
