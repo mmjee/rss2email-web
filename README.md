@@ -1,4 +1,4 @@
-# rss2email-web
+ga# rss2email-web
 
 ## Project setup
 ```
@@ -22,3 +22,7 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Licence
+
+All code here is licensed under AGPL 3.0 **only**, see [LICENCE](LICENCE).
