@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@arcana/auth": "^1.0.3",
     "async-mutex": "^0.4.0",
     "core-js": "^3.8.3",
     "ethers": "^5.7.2",

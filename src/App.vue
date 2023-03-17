@@ -5,7 +5,8 @@
     </v-main>
 
     <v-main v-else>
-      <v-progress-linear />
+      <v-btn outlined @click="loadArcana" class="ml-1">Load via Arcana Auth</v-btn>
+      <v-btn outlined @click="loadLocally" class="ml-2">Load via your local wallet</v-btn>
     </v-main>
   </v-app>
 
@@ -43,8 +44,9 @@ export default {
         locale = 'en-GB-oxendict'
       }
       this.$store.commit('i18n/updateState', locale)
-
-      const ws = await (new WebSocketConn().initialize(window.ethereum))
+    },
+    async load (provider) {
+      const ws = await (new WebSocketConn().initialize(provider))
       this.$store.commit('api/setSocket', ws)
 
       ws.emitter.on(EVENT_INITIALIZATION, ({ user_found: userFound }) => {
@@ -54,6 +56,20 @@ export default {
       ws.emitter.on(EVENT_WELCOME, (data) => {
         this.$store.commit('api/setUser', data.user)
       })
+    },
+    loadLocally () {
+      return this.load(window.ethereum)
+    },
+    async loadArcana () {
+      const ÃP = await import('@arcana/auth')
+      const ap = new ÃP.AuthProvider(process.env.VUE_APP_ARCANA_APP_ID, {
+        alwaysVisible: true,
+        debug: false,
+        theme: 'light'
+      })
+      await ap.init()
+      await ap.connect()
+      return this.load(ap.provider)
     }
   },
   mounted () {
