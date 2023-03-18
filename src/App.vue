@@ -69,7 +69,12 @@ export default {
       })
       await ap.init()
       await ap.connect()
-      return this.load(ap.provider)
+      const p = ap.getProvider()
+      p.once('connect', () => {
+        return this.load(p).catch(e => {
+          window.alert(e.message)
+        })
+      })
     }
   },
   mounted () {
