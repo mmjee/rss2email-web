@@ -27,6 +27,8 @@ import SignUpForm from '@/views/SignUpForm'
 import { WebSocketConn } from '@/store/conn'
 import { EVENT_INITIALIZATION, EVENT_WELCOME } from '@/store/constants'
 
+let ÃP = null
+
 export default {
   name: 'App',
 
@@ -61,15 +63,17 @@ export default {
       return this.load(window.ethereum)
     },
     async loadArcana () {
-      const ÃP = await import('@arcana/auth')
-      const ap = new ÃP.AuthProvider(process.env.VUE_APP_ARCANA_APP_ID, {
-        alwaysVisible: true,
-        debug: false,
-        theme: 'light'
-      })
-      await ap.init()
-      await ap.connect()
-      const p = ap.getProvider()
+      if (ÃP == null) {
+        const SDK = await import('@arcana/auth')
+        ÃP = new SDK.AuthProvider(process.env.VUE_APP_ARCANA_APP_ID, {
+          alwaysVisible: true,
+          debug: false,
+          theme: 'light'
+        })
+      }
+      await ÃP.init()
+      await ÃP.connect()
+      const p = ÃP.getProvider()
       p.once('connect', () => {
         return this.load(p).catch(e => {
           window.alert(e.message)
