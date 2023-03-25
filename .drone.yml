@@ -16,6 +16,7 @@ steps:
     image: plugins/s3-sync:1
     settings:
         path_style: true
+        delete: true
         bucket: r2e-web
         endpoint: https://minio.mumbai.xn--17b.net
         source: dist
