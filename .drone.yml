@@ -13,7 +13,7 @@ steps:
         - echo $ENVFILE | base64 -d > .env
         - yarn run build
 -   name: sync1
-    image: plugins/s3-sync:1
+    image: docker.io/thegeeklab/drone-s3-sync:latest
     settings:
         path_style: true
         delete: true
