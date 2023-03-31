@@ -5,11 +5,11 @@ import { providers as EthersProviders, utils as EthersUtils } from 'ethers'
 import { Mutex } from 'async-mutex'
 import EventEmitter from 'eventemitter3'
 
-import { REQUEST_UNDEFINED, REQUEST_LIST_FEEDS, REQUEST_DELETE_FEED, REQUEST_ADD_FEED, REQUEST_EDIT_FEED, REQUEST_EMAIL_VERIFICATION, STATE_WAITING_CHALLENGE, STATE_WAITING_RESPONSE, STATE_AUTHENTICATED, EVENT_WELCOME, EVENT_INITIALIZATION } from '@/store/constants'
+import * as CONSTANTS from '@/store/constants'
 
 export class WebSocketConn {
   async initialize (provider) {
-    this.state = STATE_WAITING_CHALLENGE
+    this.state = CONSTANTS.STATE_WAITING_CHALLENGE
     this.emitter = new EventEmitter()
 
     this.provider = new EthersProviders.Web3Provider(provider)
@@ -61,7 +61,7 @@ export class WebSocketConn {
   }
 
   onOpen = () => {
-    this.sendMessage(REQUEST_UNDEFINED, {
+    this.sendMessage(CONSTANTS.REQUEST_UNDEFINED, {
       address: this.addressBytes,
       locale: 'en'
     })
@@ -75,23 +75,23 @@ export class WebSocketConn {
     console.log('Received message for', id, ':', data)
 
     switch (this.state) {
-      case STATE_WAITING_CHALLENGE: {
+      case CONSTANTS.STATE_WAITING_CHALLENGE: {
         this.challenge = data.challenge
-        this.emitter.emit(EVENT_INITIALIZATION, data)
+        this.emitter.emit(CONSTANTS.EVENT_INITIALIZATION, data)
         if (data.user_found) {
           await this.signChallenge({})
         }
         break
       }
-      case STATE_WAITING_RESPONSE: {
+      case CONSTANTS.STATE_WAITING_RESPONSE: {
         if (!data.logged_in) {
           return
         }
-        this.emitter.emit(EVENT_WELCOME, data)
-        this.state = STATE_AUTHENTICATED
+        this.emitter.emit(CONSTANTS.EVENT_WELCOME, data)
+        this.state = CONSTANTS.STATE_AUTHENTICATED
         break
       }
-      case STATE_AUTHENTICATED: {
+      case CONSTANTS.STATE_AUTHENTICATED: {
         const resolverSet = this.resolverMap.get(id)
         if (resolverSet == null) {
           return
@@ -119,36 +119,40 @@ export class WebSocketConn {
   async signChallenge (addl) {
     const sig = EthersUtils.arrayify(await this.signer.signMessage(this.challenge))
 
-    this.sendMessage(REQUEST_UNDEFINED, {
+    this.sendMessage(CONSTANTS.REQUEST_UNDEFINED, {
       signature: sig,
       ...addl
     })
-    this.state = STATE_WAITING_RESPONSE
+    this.state = CONSTANTS.STATE_WAITING_RESPONSE
   }
 
   createFeed (feedInfo) {
-    return this.requestAndWait(REQUEST_ADD_FEED, feedInfo)
+    return this.requestAndWait(CONSTANTS.REQUEST_ADD_FEED, feedInfo)
   }
 
   getFeeds (sort) {
-    return this.requestAndWait(REQUEST_LIST_FEEDS, {
+    return this.requestAndWait(CONSTANTS.REQUEST_LIST_FEEDS, {
       sort
     })
   }
 
   editFeed (feedInfo) {
-    return this.requestAndWait(REQUEST_EDIT_FEED, feedInfo)
+    return this.requestAndWait(CONSTANTS.REQUEST_EDIT_FEED, feedInfo)
   }
 
   deleteFeed (feed) {
-    return this.requestAndWait(REQUEST_DELETE_FEED, {
+    return this.requestAndWait(CONSTANTS.REQUEST_DELETE_FEED, {
       id: feed.id
     })
   }
 
   requestEmailVerification (token) {
-    return this.requestAndWait(REQUEST_EMAIL_VERIFICATION, {
+    return this.requestAndWait(CONSTANTS.REQUEST_EMAIL_VERIFICATION, {
       token: Buffer.from(token, 'hex')
     })
+  }
+
+  requestEmailAgain () {
+    return this.requestAndWait(CONSTANTS.REQUEST_EMAIL_AGAIN, false)
   }
 }

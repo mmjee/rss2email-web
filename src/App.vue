@@ -15,6 +15,9 @@
       <v-btn outlined link to="/">
         Subscription List
       </v-btn>
+      <v-btn v-if="!$store.state.api.user.email_verified" class="ml-2" @click="requestEmailAgain">
+        Request Verification Email Again
+      </v-btn>
     </v-app-bar>
     <v-main>
       <router-view />
@@ -75,12 +78,17 @@ export default {
         })
       }
       await ÃP.init()
-      await ÃP.connect()
       const p = ÃP.getProvider()
       p.once('connect', () => {
         return this.load(p).catch(e => {
           window.alert(e.message)
         })
+      })
+      await ÃP.connect()
+    },
+    requestEmailAgain () {
+      this.$store.state.api.socket.requestEmailAgain().catch(e => {
+        window.alert(e.message)
       })
     }
   },
