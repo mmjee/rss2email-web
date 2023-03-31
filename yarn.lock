@@ -19,10 +19,9 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@arcana/auth@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@arcana/auth/-/auth-1.0.3.tgz#10008e95e9c43b5bafaf9a35ae8261c028975619"
-  integrity sha512-Ab6UoxqlsruzWZ3XPBL8jdfrW2GmU7F4dec7Qic/L6jePQTxjOkSkXqrTnZ8Zo4Ew3A/6r6j/8HcjbgFAyBoBQ==
+"@arcana/auth@https://f003.backblazeb2.com/file/Bronze8113/arcana-sdk-wallet.1.0.3.tgz":
+  version "1.0.4"
+  resolved "https://f003.backblazeb2.com/file/Bronze8113/arcana-sdk-wallet.1.0.3.tgz#e97bccd9275c558744069438143449287564a94c"
   dependencies:
     "@metamask/safe-event-emitter" "^2.0.0"
     eth-rpc-errors "^4.0.3"
@@ -1331,6 +1330,11 @@
     "@ethersproject/logger" "^5.7.0"
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
+
+"@fontsource/sora@^4.5.12":
+  version "4.5.12"
+  resolved "https://registry.yarnpkg.com/@fontsource/sora/-/sora-4.5.12.tgz#07cf449f699a5eea95b148478e521e0b27bec7ec"
+  integrity sha512-7pWwrWIKcLH0pvKCSssb96KFFKwt5+eKHC4yHfFYtxapQ6Ax+/Rj02QHnIkXyy5nc5cOvyOAQM2MAIGlMtoj9w==
 
 "@formatjs/ecma402-abstract@1.14.3":
   version "1.14.3"

@@ -8,7 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@arcana/auth": "^1.0.3",
+    "@arcana/auth": "https://f003.backblazeb2.com/file/Bronze8113/arcana-sdk-wallet.1.0.3.tgz",
+    "@fontsource/sora": "^4.5.12",
     "async-mutex": "^0.4.0",
     "core-js": "^3.8.3",
     "ethers": "^5.7.2",

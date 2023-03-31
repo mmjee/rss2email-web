@@ -64,7 +64,10 @@ export default {
     },
     async loadArcana () {
       if (ÃP == null) {
-        const SDK = await import('@arcana/auth')
+        const [, SDK] = await Promise.all([
+          import('@fontsource/sora/variable.css'),
+          import('@arcana/auth')
+        ])
         ÃP = new SDK.AuthProvider(process.env.VUE_APP_ARCANA_APP_ID, {
           alwaysVisible: true,
           debug: false,
