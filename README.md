@@ -1,4 +1,6 @@
-ga# rss2email-web
+# rss2email-web
+
+A simple UI to manage RSS2Email feeds. See the back-end for more information.
 
 ## Project setup
 ```
