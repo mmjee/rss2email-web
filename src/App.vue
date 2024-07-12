@@ -30,8 +30,6 @@ import SignUpForm from '@/views/SignUpForm'
 import { WebSocketConn } from '@/store/conn'
 import { EVENT_INITIALIZATION, EVENT_WELCOME } from '@/store/constants'
 
-let ÃP = null
-
 export default {
   name: 'App',
 
@@ -66,25 +64,7 @@ export default {
       return this.load(window.ethereum)
     },
     async loadArcana () {
-      if (ÃP == null) {
-        const [, SDK] = await Promise.all([
-          import('@fontsource/sora/variable.css'),
-          import('@arcana/auth')
-        ])
-        ÃP = new SDK.AuthProvider(process.env.VUE_APP_ARCANA_APP_ID, {
-          alwaysVisible: true,
-          debug: false,
-          theme: 'light'
-        })
-      }
-      await ÃP.init()
-      const p = ÃP.getProvider()
-      p.once('connect', () => {
-        return this.load(p).catch(e => {
-          window.alert(e.message)
-        })
-      })
-      await ÃP.connect()
+      window.alert('Arcana Auth is not supported any more')
     },
     requestEmailAgain () {
       this.$store.state.api.socket.requestEmailAgain().catch(e => {
